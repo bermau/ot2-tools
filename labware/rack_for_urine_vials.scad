@@ -33,15 +33,15 @@ module texts(){
 }
 
 // main
-//difference(){
+difference(){
     color("yellow", 0.5) #cube([X_BOX, Y_BOX, Z_HEIGHT   ] ); 
-    %color("blue", 0.8) vial_array();
+    color("blue", 0.8) vial_array();
     
     // Tronquer le coté en haut à gauche
     translate([0,Y_BOX-5, -0.1])
     rotate([0,0,45]) translate([-10,,0]) cube([20, 20, 30]);
     texts();
-//}
+}
 
     // texts
     // texts();
