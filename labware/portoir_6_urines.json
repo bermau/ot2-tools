@@ -1,0 +1,119 @@
+{
+    "ordering": [
+        [
+            "A1",
+            "B1"
+        ],
+        [
+            "A2",
+            "B2"
+        ],
+        [
+            "A3",
+            "B3"
+        ]
+    ],
+    "brand": {
+        "brand": "Bertrand MAUBERT",
+        "brandId": [
+            "#3"
+        ]
+    },
+    "metadata": {
+        "displayName": "portoir_6_urines",
+        "displayCategory": "wellPlate",
+        "displayVolumeUnits": "µL",
+        "tags": []
+    },
+    "dimensions": {
+        "xDimension": 127.76,
+        "yDimension": 85.48,
+        "zDimension": 77
+    },
+    "wells": {
+        "A1": {
+            "depth": 74,
+            "totalLiquidVolume": 3,
+            "shape": "circular",
+            "diameter": 25,
+            "x": 36,
+            "y": 63.48,
+            "z": 3
+        },
+        "B1": {
+            "depth": 74,
+            "totalLiquidVolume": 3,
+            "shape": "circular",
+            "diameter": 25,
+            "x": 36,
+            "y": 21.48,
+            "z": 3
+        },
+        "A2": {
+            "depth": 74,
+            "totalLiquidVolume": 3,
+            "shape": "circular",
+            "diameter": 25,
+            "x": 77,
+            "y": 63.48,
+            "z": 3
+        },
+        "B2": {
+            "depth": 74,
+            "totalLiquidVolume": 3,
+            "shape": "circular",
+            "diameter": 25,
+            "x": 77,
+            "y": 21.48,
+            "z": 3
+        },
+        "A3": {
+            "depth": 74,
+            "totalLiquidVolume": 3,
+            "shape": "circular",
+            "diameter": 25,
+            "x": 118,
+            "y": 63.48,
+            "z": 3
+        },
+        "B3": {
+            "depth": 74,
+            "totalLiquidVolume": 3,
+            "shape": "circular",
+            "diameter": 25,
+            "x": 118,
+            "y": 21.48,
+            "z": 3
+        }
+    },
+    "groups": [
+        {
+            "metadata": {
+                "wellBottomShape": "v"
+            },
+            "wells": [
+                "A1",
+                "B1",
+                "A2",
+                "B2",
+                "A3",
+                "B3"
+            ]
+        }
+    ],
+    "parameters": {
+        "format": "irregular",
+        "quirks": [],
+        "isTiprack": false,
+        "isMagneticModuleCompatible": false,
+        "loadName": "portoir_6_urines"
+    },
+    "namespace": "custom_beta",
+    "version": 1,
+    "schemaVersion": 2,
+    "cornerOffsetFromSlot": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    }
+}
