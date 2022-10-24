@@ -1,3 +1,5 @@
 A conical tube. 
 
-A used htem in first experiments on OT-2. 
+I used it in my first experiments on OT-2.
+
+It needs a reducer to fit in the rack. The reducer in designed as reductor.
