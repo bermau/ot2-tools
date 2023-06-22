@@ -13,12 +13,12 @@ module  adaptator(){
     difference(){
     union(){
     cylinder(d = DIA_COLERETTE, h = Z2);
-     cylinder(d= DIA_EXT, h = Z1) ; 
+    %cylinder(d= DIA_EXT, h = Z1) ; 
     }
     translate([0,0,-1])
     cylinder(d= DIA_IN, h = 50);
     
-    cylinder(h=8, r1= DIA_IN/2 + 4, r2= 10/2);
+    #cylinder(h=8, r1= DIA_IN/2 + 2.5, r2= 10/2);
     }
 }
 
