@@ -4,4 +4,6 @@
 
 OT-2 is a Liquid Handler from Opentrons.com
 
-Here a share some 3D designs. 
+Here I share some 3D designs. 
+
+
