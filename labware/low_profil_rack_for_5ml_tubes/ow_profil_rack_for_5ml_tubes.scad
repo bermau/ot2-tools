@@ -1,23 +1,26 @@
 
 
 
-WIDTH_X = 127.5 ;
-DEPTH_Y =  85.5 ;
+WIDTH_X = 127.76 ;
+DEPTH_Y =  85.48 ;
 
-LOW_Z = 7.3 ;
+LOW_Z = 7.3 ;   // Epaisseur du bas du rack
+EPP_BAS = 1.5 ; // épaisseur du  pour calage des tubes en bas 
 
 HEIGHT_Z = 43 +  LOW_Z ; 
 WALL_EPP = 2; 
 eps = 0.5; 
 
+D_TUBES = 13 ; 
+
+DELTA_EMBOITEMENT = 0.5 ;
 
 module base(){
     cube([WIDTH_X, DEPTH_Y, LOW_Z]);
-    
 } 
 
 
-win_path = [[0,0,]  , [-7, 0], [-7, 20],[-7 , 30], [-7+7, 45] ];
+win_path = [[0,0,]  , [-7, 0], [-7, 20],[-7 , 35], [-7+7, 48] ];
 
 
 module half_win(){
@@ -57,10 +60,71 @@ module side_wall(){
 }
 
 
-color("yellow", 0.2) translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) base();
+module bottom(){
+union(){
+    color("yellow", 0.2) translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) base();
 
-translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) front_wall();
-translate([WIDTH_X/2,(DEPTH_Y/2)-WALL_EPP,0]) mirror([1,0,0]) front_wall();
+    translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) front_wall();
+    translate([WIDTH_X/2,(DEPTH_Y/2)-WALL_EPP,0]) mirror([1,0,0]) front_wall();
 
-translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) side_wall();
-%translate([(WIDTH_X/2)-WALL_EPP,(DEPTH_Y/2),0,])mirror([0,1,0]) side_wall();
+    translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) side_wall();
+    translate([(WIDTH_X/2)-WALL_EPP,(DEPTH_Y/2),0,])mirror([0,1,0]) side_wall();
+    }
+    }
+    
+NB_COL = 5; 
+NB_ROW = 3; 
+SPC_COL = 25 ; 
+SPC_ROW = 25; 
+    
+module trou_toit(){
+    translate([(WIDTH_X - (NB_COL-1) * SPC_COL)/2, (DEPTH_Y - (NB_ROW-1) * SPC_ROW)/2, -5]) 
+    for ( i = [0:SPC_COL:(NB_COL-1)*SPC_COL]) 
+        for (j= [0:SPC_ROW:SPC_ROW*2]) {
+                translate([i, j, 0])cylinder(h=15, d=D_TUBES);
+}
+}
+
+module toit(){
+    difference(){
+        union(){
+            cube([WIDTH_X, DEPTH_Y, 1]);
+            translate([WALL_EPP + (DELTA_EMBOITEMENT/2), WALL_EPP + (DELTA_EMBOITEMENT/2), -2 +eps])
+                cube([WIDTH_X-DELTA_EMBOITEMENT - WALL_EPP*2, 
+                      DEPTH_Y - DELTA_EMBOITEMENT - WALL_EPP*2, 
+                      2]);
+        }
+    trou_toit();
+    }
+}
+
+module trou_bas(){
+    translate([(WIDTH_X - (NB_COL-1) * SPC_COL)/2, (DEPTH_Y - (NB_ROW-1) * SPC_ROW)/2, -5]) 
+    for ( i = [0:SPC_COL:(NB_COL-1)*SPC_COL]) 
+        for (j= [0:SPC_ROW:SPC_ROW*2]) {
+                translate([i, j, 0])cylinder(h=15, d=11);
+        }
+}
+module support_bas(){
+        difference(){
+        union(){
+            cube([WIDTH_X, DEPTH_Y, EPP_BAS]);
+//            translate([WALL_EPP, WALL_EPP, -2+eps])
+//                cube([WIDTH_X - WALL_EPP*2, DEPTH_Y- WALL_EPP*2, 2]);
+        }
+    trou_bas();
+    }
+}
+
+
+translate([WIDTH_X/2, DEPTH_Y/2])
+    bottom();
+
+translate([0,0,60])
+    toit();
+
+
+
+color("red", 0.2) {
+translate([0,0,LOW_Z]) support_bas();
+}
