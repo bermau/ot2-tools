@@ -2,7 +2,8 @@ $fn=35;
 eps = 0.005;
 
 D_TENON = 6.3/2   ; 
-BETWEEN_HOLES = 9.02; 
+BETWEEN_HOLES = 9.02;
+H_TENON = 5 ;
 // grip : 
 G_HEIGHT = 2 ;
 G_DIA = 16; 
@@ -39,21 +40,28 @@ module gripper(){
         }   
 };
 
-translate([25,0,0]) gripper();
+H_SUPPORT = 5; 
 
-//difference(){
+module support(){
+    difference(){
+          translate([-10,-10,0]) cube([20, 40, H_SUPPORT +2]);
+            union(){
+           minkowski() {
+            translate ([0,0, 2])
+            scale([1, 1, 3]) gripper();
+            cylinder(h=10 ,  r = 1);
+            }
+        }
+    }
+    
+    
+    for (i = [-1, 1])
+        for (j = [-1, 1])
+            translate([(i)  * BETWEEN_HOLES/2, (3+j) * BETWEEN_HOLES/2, -H_TENON])
+                cylinder(5, D_TENON, D_TENON);
 
-//    translate([-10,-10,-3])cube([20,40,6.9]);
-//minkowski() {
-//scale([1,1,2])thingie();
- //   	sphere(r = 1);
-//}
-//}
+    }
 
+// translate([25,0,0]) gripper();
 
-
-for (i = [0, 1])
-    for (j = [0, 1])
-        translate([i * BETWEEN_HOLES, j * BETWEEN_HOLES, 0])
-            cylinder(5, D_TENON, D_TENON);
-
+ translate([0,0, 0]) support(); 
