@@ -1,7 +1,7 @@
 $fn=35;
 eps = 0.005;
 
-D_TENON = 6.3/2   ; 
+D_TENON = 7.6   ; 
 BETWEEN_HOLES = 9.02;
 H_TENON = 5 ;
 // grip : 
@@ -12,7 +12,6 @@ G_INT_DIA = 11;
 // a hole, in witch the top part of a p1000 tip is glued
 D_TOP = 9; //  8.76
 D_BOTTOM = 7.0 ; 
-
 
 
 // la pince
@@ -42,26 +41,28 @@ module gripper(){
 
 H_SUPPORT = 5; 
 
+module tenons(){
+        for (i = [-1, 1])
+        for (j = [-1, 1])
+            translate([(i)  * BETWEEN_HOLES/2, (3+j) * BETWEEN_HOLES/2, -H_TENON])
+                cylinder(5, d= D_TENON);
+}
+
 module support(){
     difference(){
           translate([-10,-10,0]) cube([20, 40, H_SUPPORT +2]);
-            union(){
-           minkowski() {
-            translate ([0,0, 2])
-            scale([1, 1, 3]) gripper();
-            cylinder(h=10 ,  r = 1);
-            }
-        }
+        
+    translate([0, 0, 1])
+    linear_extrude(50)
+    offset(r=0.8 )
+    projection(cut = true) 
+        translate([0,0,-0.3])
+            gripper();
     }
-    
-    
-    for (i = [-1, 1])
-        for (j = [-1, 1])
-            translate([(i)  * BETWEEN_HOLES/2, (3+j) * BETWEEN_HOLES/2, -H_TENON])
-                cylinder(5, D_TENON, D_TENON);
+        // tenons
+    tenons();
+}
 
-    }
+translate([25,0,0]) gripper();
 
-// translate([25,0,0]) gripper();
-
- translate([0,0, 0]) support(); 
+// translate([0,0, 0]) support(); 
