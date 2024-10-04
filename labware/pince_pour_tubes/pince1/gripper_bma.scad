@@ -3,15 +3,15 @@ eps = 0.005;
 
 D_TENON = 7.6   ; 
 BETWEEN_HOLES = 9.02;
-H_TENON = 5 ;
+H_TENON = 5 -0.5 ;
 // grip : 
 G_HEIGHT = 2 ;
 G_DIA = 16; 
-G_INT_DIA = 11; 
+G_INT_DIA = 11 + 1; 
 
 // a hole, in witch the top part of a p1000 tip is glued
-D_TOP = 9; //  8.76
-D_BOTTOM = 7.0 ; 
+D_TOP = 9 + 1.5; //  8.76
+D_BOTTOM = 7.0 +1.5 ; 
 
 
 // la pince
@@ -21,7 +21,7 @@ module gripper(){
     difference(){
         cylinder(h= G_HEIGHT, d = G_DIA);        
         
-        translate ([0,0,-eps]) cylinder(30, d= 11, $fn = 60);
+        translate ([0,0,-eps]) cylinder(30, d= G_INT_DIA, $fn = 60);
         translate([-20,-13.5,-eps]) cube([40, 10, 10]);
     }
 
@@ -35,7 +35,7 @@ module gripper(){
                 cube([10,10,G_HEIGHT]);
              }
              // cone adapter
-             translate([0,0,-eps])cylinder(20 + 2*eps, d1= D_BOTTOM, d2= D_TOP);
+             translate([0,0,-eps])cylinder(20 + 2*eps, d1= D_BOTTOM, d2= D_TOP, $fn=60);
         }   
 };
 
@@ -63,6 +63,6 @@ module support(){
     tenons();
 }
 
-translate([25,0,0]) gripper();
+//translate([25,0,0]) gripper();
 
-// translate([0,0, 0]) support(); 
+ translate([0,0, 0]) support(); 
