@@ -22,5 +22,8 @@ Here I share some 3D designs.
 ## Stabilizator for a 15 tubes rack
 cf. [bottom_part_for_15_tubes_rack.FCStd](labware/inferior_subpart_for_15_wells_rack/bottom_part_for_15_tubes_rack.FCStd)
 
+## Repise du code de Sanderson pour la saisie de tubes Eppendorf.
+cf . [gripper_bma.scad](labware/pince_pour_tubes/pince1/gripper_bma.scad)
+
 
 Ref : D_112
