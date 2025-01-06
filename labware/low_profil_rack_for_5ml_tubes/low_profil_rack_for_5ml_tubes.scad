@@ -1,4 +1,4 @@
-
+// J'ai créé ce portoir lors de l'étude resprotect
 
 
 WIDTH_X = 127.76 ;
@@ -11,7 +11,9 @@ HEIGHT_Z = 43 +  LOW_Z ;
 WALL_EPP = 2; 
 eps = 0.5; 
 
-// Adaptation pour des tubes Copan de 3 ml,
+// Adaptation pour des tubes Copan de 3 ml, commandés pour l'enquête.
+// Mesurent environ 80 mm de long. 
+// avec 2 étiquettes collées l'une sur l'autre.
 D_TUBES = 14.8 ; 
 
 DELTA_EMBOITEMENT = 0.5 ;
