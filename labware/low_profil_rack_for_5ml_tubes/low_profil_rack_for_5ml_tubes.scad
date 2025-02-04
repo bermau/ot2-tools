@@ -11,6 +11,13 @@ HEIGHT_Z = 43 +  LOW_Z ;
 WALL_EPP = 2; 
 eps = 0.5; 
 
+NB_COL = 5; 
+NB_ROW = 3; 
+SPC_COL = 25 ; 
+SPC_ROW = 25; 
+
+SPHERE_R = 7;  // rayon pour le logement des fonds des tubes à fond rond. 
+
 // Adaptation pour des tubes Copan de 3 ml, commandés pour l'enquête.
 // Mesurent environ 80 mm de long. 
 // avec 2 étiquettes collées l'une sur l'autre.
@@ -63,22 +70,26 @@ module side_wall(){
 }
 
 
-module bottom(){
-union(){
-    color("yellow", 0.2) translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) base();
+// La partie principale. On ajoutera un toit. 
+// On retirera les trous de calage des tubes en bas. 
+module main_body(){
+    difference(){
+        union(){
+            color("yellow", 0.2) translate([-WIDTH_X/2,-DEPTH_Y/2,0]) base();
 
-    translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) front_wall();
-    translate([WIDTH_X/2,(DEPTH_Y/2)-WALL_EPP,0]) mirror([1,0,0]) front_wall();
+            translate([-WIDTH_X/2,-DEPTH_Y/2,0]) front_wall();
+            translate([WIDTH_X/2,(DEPTH_Y/2)-WALL_EPP,0]) mirror([1,0,0]) front_wall();
 
-    translate([-WIDTH_X/2,-DEPTH_Y/2,0,]) side_wall();
-    translate([(WIDTH_X/2)-WALL_EPP,(DEPTH_Y/2),0,])mirror([0,1,0]) side_wall();
-    }
-    }
+            translate([-WIDTH_X/2,-DEPTH_Y/2,0]) side_wall();
+            translate([(WIDTH_X/2)-WALL_EPP,(DEPTH_Y/2),0])mirror([0,1,0]) side_wall();
+            // ajout du bas
+            translate([(-WIDTH_X/2),(-DEPTH_Y/2),LOW_Z]) support_bas();
+            }
+        translate([-WIDTH_X/2,-DEPTH_Y/2,0]) trous_spheriques();
+        }
+}
     
-NB_COL = 5; 
-NB_ROW = 3; 
-SPC_COL = 25 ; 
-SPC_ROW = 25; 
+
     
 module trou_toit(){
     translate([(WIDTH_X - (NB_COL-1) * SPC_COL)/2, (DEPTH_Y - (NB_ROW-1) * SPC_ROW)/2, -5]) 
@@ -119,17 +130,33 @@ module toit(){
         }
     // trous    
     trou_toit();
-
     }
 }
 
-module trou_bas(){
-    translate([(WIDTH_X - (NB_COL-1) * SPC_COL)/2, (DEPTH_Y - (NB_ROW-1) * SPC_ROW)/2, -5]) 
+// des trous cylindriques pour bloquer les parois des tubes de prelèvemnt Copan 3ml petit modèles. A retirer. 
+module trou_paroi(){
+    translate([(WIDTH_X - (NB_COL-1) * SPC_COL)/2, 
+               (DEPTH_Y - (NB_ROW-1) * SPC_ROW)/2,
+                -5]) 
     for ( i = [0:SPC_COL:(NB_COL-1)*SPC_COL]) 
         for (j= [0:SPC_ROW:SPC_ROW*2]) {
                 translate([i, j, 0])cylinder(h=15, d=D_TUBES , $fn=60);
         }
 }
+
+
+// des trous sphériques pour que les tubes de 5 ml à fond rond soient calés. A retirer. 
+module trous_spheriques(){
+    translate([(WIDTH_X - (NB_COL-1) * SPC_COL)/2,
+               (DEPTH_Y - (NB_ROW-1) * SPC_ROW)/2, 
+               +SPHERE_R +5]) 
+    for ( i = [0:SPC_COL:(NB_COL-1)*SPC_COL]) 
+        for (j= [0:SPC_ROW:SPC_ROW*2]) {
+                translate([i, j, 0])sphere(r=SPHERE_R, $fn=60);
+        }
+}
+
+
 module support_bas(){
         difference(){
         union(){
@@ -137,19 +164,18 @@ module support_bas(){
 //            translate([WALL_EPP, WALL_EPP, -2+eps])
 //                cube([WIDTH_X - WALL_EPP*2, DEPTH_Y- WALL_EPP*2, 2]);
         }
-    trou_bas();
+    trou_paroi();
     }
 }
 
 
 translate([WIDTH_X/2, DEPTH_Y/2])
-    bottom();
+     main_body();
 
 
 //translate([0,0,60])
 //rotate([0,0,0])
 //    toit();
 
-color("red", 0.2) {
-    translate([0,0,LOW_Z]) support_bas();
-}
+
+
