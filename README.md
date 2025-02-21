@@ -22,8 +22,15 @@ Here I share some 3D designs.
 ## Stabilizator for a 15 tubes rack
 cf. [bottom_part_for_15_tubes_rack.FCStd](labware/inferior_subpart_for_15_wells_rack/bottom_part_for_15_tubes_rack.FCStd)
 
-## Repise du code de Sanderson pour la saisie de tubes Eppendorf.
+## Reprise du code de Sanderson pour la saisie de tubes Eppendorf.
 cf . [gripper_bma.scad](labware/pince_pour_tubes/pince1/gripper_bma.scad)
+
+# Objets 3D pour l'étude Resprotect.
+[low_profil_rack_for_5ml_tubes.scad](labware/low_profil_rack_for_5ml_tubes/low_profil_rack_for_5ml_tubes.scad) est un plan 3D pour créer un portoir de 15 tubes. Par rapport à la version initiale, le fond du portoir permet de caler des tubes à forme semi-sphérique ou à forme cylindrique. Par ailleurs, le bloc est de faible épaisseur, ce qui facilite la mise en place ou le retrait des tubes, en permettant un accès facile au haut du tube. A utiliser avec le plan [5ml_top_part.FCStd](labware/low_profil_rack_for_5ml_tubes/5ml_top_part.FCStd)
+
+![low_profil_rack_for_5ml_tubes.png](labware/images/low_profil_rack_for_5ml_tubes.png)
+
+
 
 
 Ref : D_112
